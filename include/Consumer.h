@@ -5,7 +5,6 @@
 
 
 #define NUM_PRODUCERS 2
-#define MAX_MILLISECOND 1000
 
 class Consumer
 {

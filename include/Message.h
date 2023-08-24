@@ -2,6 +2,6 @@
 typedef struct Message
 {
 	double val;
-	int size_tid;
+	size_t size_tid;
 	bool is_finish;
 }Message;

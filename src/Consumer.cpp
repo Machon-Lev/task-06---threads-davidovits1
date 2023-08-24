@@ -1,6 +1,5 @@
-#include"Consumer.h"
+#include "Consumer.h"
 #include <iostream>
-//#include <chrono>
 
 Consumer::Consumer(std::list<Message>& messages)
 	: _messages(messages) {};
@@ -15,19 +14,9 @@ void Consumer::operator()()
 		{
 			{
 				std::unique_lock lck(_locker.mtx_msg);
-				// Waiting until notify and '_messages' is not empty which returns true
-				// or until it reaches the maximum time to wait
-				if (_locker.cond_msg.wait_for(lck, std::chrono::milliseconds(MAX_MILLISECOND), [&]() {
-					return !_messages.empty(); }))
-				{
-					msg = _messages.front();
-					_messages.pop_front();
-				}
-				else
-				{
-					std::cerr << "Termination due to excessive waiting time" << std::endl;
-					break;
-				}
+				_locker.cond_msg.wait(lck, [&]() { return !_messages.empty(); });
+				msg = _messages.front();
+				_messages.pop_front();	
 			}
 			if (msg.is_finish)
 			{
