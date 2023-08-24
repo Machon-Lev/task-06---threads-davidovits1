@@ -1,20 +1,21 @@
 #pragma once
 #include "Locker.h"
 #include "Message.h"
+#include <list>
 
 class Producer
 {
 	// static, internal globals :
-	static Lockers _lockers;
+	static Locker _locker;
 
 	// globals (by reference) :
-	List<Message>& _global_list;
+	std::list<Message>& _global_list;
 
 	// parameters :
 	int _millisecondsToWait;
 
 public:
-	Producer(List<Message>& global_stack, int millisecondsToWait;
+	Producer(std::list<Message>& global_stack, int millisecondsToWait);
 
-	void operator() ();
+	void operator()();
 };
