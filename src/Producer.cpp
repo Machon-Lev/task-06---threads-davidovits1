@@ -1,10 +1,8 @@
 #include "Producer.h"
 #include <iostream>
 
-// init static : 
 Locker Producer::_locker;
 
-// functions :
 Producer::Producer(std::list<Message>& global_list, int millisecondsToWait) :
 	_global_list(global_list),
 	_millisecondsToWait(millisecondsToWait){}
